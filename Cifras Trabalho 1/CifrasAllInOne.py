@@ -8,6 +8,12 @@ def menuOP ():
 
 ###################################################################################
 
+def acao():
+    ac = input("1-> Cifrar \n2-> Decifrar \n-> ")
+    return int(ac)
+
+###################################################################################
+
 def criachave():
     nCar = 127
     chave = ['']*nCar
@@ -124,6 +130,7 @@ def cifratextoT(texto,chave):
     for i in range(chave):
         matriz[i] = [''] * cols
 
+    print(texto)
     texto = conversion(matriz,texto,chave,cols)
     print('Cifrado : ',texto)
     return texto
@@ -156,7 +163,6 @@ def cifratextoV(texto,chave):
             splited[i] = chr((int(ord(splited[i])) + int(ord(chave[pk])))%256)
 
     texto= ''
-    print(splited)
     for i in range(0,len(splited)):
         texto += splited[i]
     print('Cifrado : ',texto)
@@ -224,31 +230,43 @@ def decifratextoC (texto,chave):
 
 while True:
     arq = open("entrada.txt",'r')
-    entrada = arq.read()
+    entradaAR = arq.read()
     menu = menuOP()
     decifrado = ''
     if menu == 1:
         chave = input("Digite a chave(numero): ")
         chave = int(chave)%256
-        cifrado = cifratextoC(entrada,chave)
-        decifrado = decifratextoC(cifrado,chave)
+        ac = acao()
+        if ac == 1:
+            entrada = cifratextoC(entradaAR,chave)
+        else:
+            decifrado = decifratextoC(entrada,chave)
     elif menu == 2:
         chaveT = input("Digite a chave(numero) : ")
-        chaveT = int(chaveT)%len(entrada)
-        cifrado = cifratextoT(entrada,chaveT)
-        decifrado = decifratextoT(cifrado,chaveT)
+        chaveT = int(chaveT)%len(entradaAR)
+        ac = acao()
+        if ac == 1:
+            entrada = cifratextoT(entradaAR,chaveT)
+        else:
+            decifrado = decifratextoT(entrada,chaveT)
     elif menu == 3:
         chaveV = input("Digite a chave(texto/numero) : ")
-        cifrado = cifratextoV(entrada,str(chaveV))
-        decifrado = decifratextoV(cifrado,chaveV)
+        ac = acao()
+        if ac == 1:
+            entrada = cifratextoV(entradaAR,str(chaveV))
+        else:
+            decifrado = decifratextoV(entrada,chaveV)
     elif menu == 4:
         chaveS = criachave()
-        cifrado = cifratextoS(entrada,chaveS)
-        decifrado = decifratextoS(cifrado,chaveS)
+        ac = acao()
+        if ac == 1:
+            entrada = cifratextoS(entradaAR,chaveS)
+        else:
+            decifrado = decifratextoS(entrada,chaveS)
     elif menu == 0:
         break
 
-    if entrada == decifrado:
-        print('O processo de cifragem e decifragem ocorreu perfeitamente!')
-    else:
-        print('Algou deu errado com o processo!')
+    if ac == 1:
+        print('Texto Cifrado \n')
+    if ac != 1 and entradaAR == decifrado:
+        print('O processo decifragem ocorreu perfeitamente!')

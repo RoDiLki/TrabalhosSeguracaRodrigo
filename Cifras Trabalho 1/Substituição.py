@@ -1,5 +1,4 @@
 __author__ = 'Vostro3550'
-
 import random
 import os
 
@@ -12,6 +11,7 @@ def criachave():
     tenhochave = 0
     if not os.path.exists("dic.bin"):
         ascii = []
+
         for i in range(0,nCar):
             ascii.append(chr(i))
 
@@ -26,9 +26,9 @@ def criachave():
         arq = open("dic.bin",'wb')
         temp = ''
         for i in range(nCar):
-            temp += str(chave[i][1])
-        data = temp.encode('utf-8')
-        arq.write(data)
+            temp = str(chave[i][1])
+            data = temp.encode('utf-8')
+            arq.write(data)
         arq.close()
 
         print('Chave gerada!')
@@ -38,8 +38,10 @@ def criachave():
         #for i in range(nCar):
         linha = arq.read()
         r = [l for l in linha]
-        print(r)
-        print(linha)
+        print(max(r),r)
+
+        for i in range(0,len(linha)):
+            print(chr(linha[i]))
            # div = linha.split(' ')
            # div[1]= div[1].replace('\n','')
           #  chave[i][0] = chr(int(div[0]))

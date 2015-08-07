@@ -15,6 +15,7 @@ def conversion(matriz,texto,chave,cols):
         else:
             j=0
             k+=1
+    print(matriz)
     texto = ''
     for i in range(chave):
         for j in range(cols):
@@ -43,7 +44,7 @@ def decifratexto(texto,chave):
     return texto
 
 
-arq = open("texto.txt",'r')
+arq = open("entrada.txt",'r')
 entrada = arq.read()
 
 print('Entrada : '+entrada)
