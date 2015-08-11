@@ -4,31 +4,26 @@ import os
 
 def criachave():
     nCar = 256
-    chave = ['']*nCar
-    for i in range(nCar):
-        chave[i] = ['']*2
+    chave = []
 
     tenhochave = 0
     if not os.path.exists("dic.bin"):
         ascii = []
-
         for i in range(0,nCar):
-            ascii.append(chr(i))
+            ascii.append(i)
 
-        for i in range(nCar):
-            chave[i][0] = ascii[i]
-
+        print(ascii)
         for i in range(nCar):
             rnd = random.randint(0,(len(ascii)-1))
-            chave[i][1] = ascii[rnd]
+            chave.append(ascii[rnd])
             ascii.remove(ascii[rnd])
         tenhochave = 1
         arq = open("dic.bin",'wb')
-        temp = ''
+
         for i in range(nCar):
-            temp = str(chave[i][1])
-            data = temp.encode('utf-8')
-            arq.write(data)
+            temp = bytes(chave[i])
+            arq.write(temp)
+
         arq.close()
 
         print('Chave gerada!')
@@ -57,7 +52,7 @@ def cifratexto(texto,chave):
 
     for i in range(0,len(splited)):
         ln = int(ord(splited[i]))
-        ch  = chave[ln][1]
+        ch  = chave[ln]
         splited[i] = ch
 
     texto = ''
