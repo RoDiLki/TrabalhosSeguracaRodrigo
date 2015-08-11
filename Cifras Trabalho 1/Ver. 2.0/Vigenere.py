@@ -3,7 +3,7 @@ __author__ = 'Vostro3550'
 import os
 
 ChavEnt = "Chave.txt"
-print(" ---- CIFRA DE CEASAR ---- ")
+print(" ---- CIFRA DE VIGENERE ---- ")
 while True:
     nChar = 127
     NomEnt = input("\n Arquivo de origem ->  ")
@@ -19,15 +19,11 @@ while True:
 
     if os.path.exists(ChavEnt):
         EntCha = open(ChavEnt,"r")
-        Chave = int(EntCha.read())
-        chave = Chave%nChar
+        chave = EntCha.read()
         print("Chave Lida!")
         EntCha.close()
     else:
         print("Arquivo de Chave não encontrado!")
-
-
-
 
     splited =[]
     for i in range(0,len(Entrada)):
@@ -38,16 +34,33 @@ while True:
     if enc == 1:
         NomSai = "OutEnc.enc"
         SaiArq = open(NomSai,"w")
+
+        pk = 0
         for i in range(0,len(splited)):
-            splited[i] = chr((ord(splited[i]) + chave)%nChar)
-            SaiArq.write(splited[i])
+            if pk < len(chave):
+                splited[i] = chr((int(ord(splited[i])) + int(ord(chave[pk])))%nChar)
+                SaiArq.write(splited[i])
+                pk += 1
+            else:
+                pk = 0
+                splited[i] = chr((int(ord(splited[i])) + int(ord(chave[pk])))%nChar)
+                SaiArq.write(splited[i])
+
         SaiArq.close()
     else:
-        NomSai = "OutDec.txt"
+        NomSai = "OutDec.dec"
         SaiArq = open(NomSai,"w")
+        pk = 0
         for i in range(0,len(splited)):
-            splited[i] = chr((ord(splited[i]) - chave)%nChar)
-            SaiArq.write(splited[i])
+            if pk < len(chave):
+                splited[i] = chr((ord(splited[i]) - ord(chave[pk]))%nChar)
+                SaiArq.write(splited[i])
+                pk += 1
+            else:
+                pk = 0
+                splited[i] = chr((ord(splited[i]) - ord(chave[pk]))%nChar)
+                SaiArq.write(splited[i])
+
         SaiArq.close()
 
     print("Processo Finalizado!")
