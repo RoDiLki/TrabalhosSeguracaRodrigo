@@ -8,14 +8,15 @@ print(" ---- CIFRA DE TRANSPOSICAO ---- ")
 
 def conversion(matriz,texto,chave,cols,enc):
     if enc == 1:
-        NomSai = "OutEnc.enc"
+        NomSai = "Out.enc"
         SaiArq = open(NomSai,"w")
     else:
-        NomSai = "OutDec.dec"
+        NomSai = "Out.dec"
         SaiArq = open(NomSai,"w")
     j=0
     k=0
     i=0
+    print(len(matriz[i]))
     while True:
         if i == len(texto):
             break
@@ -34,6 +35,7 @@ def conversion(matriz,texto,chave,cols,enc):
 
     matriz.clear();
     SaiArq.close()
+    print("Arquivo gerado : "+NomSai)
 
 while True:
     nChar = 127
@@ -76,7 +78,7 @@ while True:
         matriz = [""] * cols
         for i in range(cols):
             matriz[i] = [""] * chave
-            conversion(matriz,Entrada,cols,chave,enc)
+        conversion(matriz,Entrada,cols,chave,enc)
 
     print("Processo Finalizado!")
 

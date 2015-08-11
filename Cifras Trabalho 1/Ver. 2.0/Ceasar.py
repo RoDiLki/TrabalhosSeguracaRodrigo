@@ -36,19 +36,21 @@ while True:
     enc =int(input("\n1 - Criptografar\n2 - Descriptografar\n-> "))
 
     if enc == 1:
-        NomSai = "OutEnc.enc"
+        NomSai = "Out.enc"
         SaiArq = open(NomSai,"w")
         for i in range(0,len(splited)):
             splited[i] = chr((ord(splited[i]) + chave)%nChar)
             SaiArq.write(splited[i])
         SaiArq.close()
+        print("Arquivo gerado : "+NomSai)
     else:
-        NomSai = "OutDec.txt"
+        NomSai = "Out.dec"
         SaiArq = open(NomSai,"w")
         for i in range(0,len(splited)):
             splited[i] = chr((ord(splited[i]) - chave)%nChar)
             SaiArq.write(splited[i])
         SaiArq.close()
+        print("Arquivo gerado : "+NomSai)
 
     print("Processo Finalizado!")
 

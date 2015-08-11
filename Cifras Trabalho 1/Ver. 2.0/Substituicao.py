@@ -3,7 +3,7 @@ __author__ = 'Vostro3550'
 import os
 import random
 
-ChavEnt = "dic.bin"
+ChavEnt = "dic.dic"
 print(" ---- CIFRA DE SUBSTITUICAO ---- ")
 
 
@@ -15,27 +15,28 @@ def criachave(nCar):
 
     for i in range(nCar):
         rnd = random.randint(0,(len(ascii)-1))
-        chave.append(ascii[rnd])
+        chave.append(chr(ascii[rnd]))
         ascii.remove(ascii[rnd])
     tenhochave = 1
-    arq = open("dic.bin",'wb')
+    arq = open("dic.dic",'w')
 
     for i in range(nCar):
-        temp = bytes(chave[i])
-        arq.write(temp)
+        #temp = bytes(chave[i])
+
+        arq.write(chave[i])
     arq.close()
     print('Chave gerada!')
     return chave
 
 def lechave():
     chave =[]
-    arq = open("dic.bin",'rb')
+    arq = open("dic.dic",'rb')
     linha = arq.read()
     r = [l for l in linha]
-    print(max(r),r)
+    #print(max(r),r)
 
     for i in range(0,len(r)):
-        print(chr(r[i]))
+        #print(chr(r[i]))
         chave.append(chr(r[i]))
     arq.close()
 
@@ -73,7 +74,7 @@ while True:
     enc =int(input("\n1 - Criptografar\n2 - Descriptografar\n-> "))
 
     if enc == 1:
-        NomSai = "OutEnc.enc"
+        NomSai = "Out.enc"
         SaiArq = open(NomSai,"w")
 
         for i in range(0,len(splited)):
@@ -82,16 +83,17 @@ while True:
             splited[i] = ch
             SaiArq.write(splited[i])
         SaiArq.close()
+        print("Arquivo gerado : "+NomSai)
     else:
-        NomSai = "OutDec.dec"
+        NomSai = "Out.dec"
         SaiArq = open(NomSai,"w")
-        for i in range(0,len(texto)):
-
-            ps = pChave(chave,texto[i])
-            splited[i] = chr(ord(chave[ps]))
+        for i in range(0,len(splited)):
+            ps = pChave(chave,splited[i])
+            splited[i] = chave[ps]
             SaiArq.write(splited[i])
 
         SaiArq.close()
+        print("Arquivo gerado : "+NomSai)
 
     print("Processo Finalizado!")
 
