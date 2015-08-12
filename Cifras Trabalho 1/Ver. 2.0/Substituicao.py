@@ -4,6 +4,7 @@ import os
 import random
 
 ChavEnt = "dic.dic"
+
 print(" ---- CIFRA DE SUBSTITUICAO ---- ")
 
 

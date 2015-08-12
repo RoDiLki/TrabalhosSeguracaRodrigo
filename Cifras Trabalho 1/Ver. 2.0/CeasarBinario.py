@@ -5,17 +5,17 @@ import os
 ChavEnt = "Chave.txt"
 print(" ---- CIFRA DE CEASAR ---- ")
 while True:
-    nChar = 127
+    nChar = 256
     NomEnt = input("\n Arquivo de origem ->  ")
 
     if os.path.exists(NomEnt):
-        EntArq = open(NomEnt,"r")
+        EntArq = open(NomEnt,"rb")
         Entrada = EntArq.read()
         print("Entrada Lida!")
-        #print(Entrada)
         EntArq.close()
     else:
         print("Arquivo de entrada nao encontrado!")
+
 
     if os.path.exists(ChavEnt):
         EntCha = open(ChavEnt,"r")
@@ -28,27 +28,24 @@ while True:
 
 
 
-
-    splited =[]
-    for i in range(0,len(Entrada)):
-        splited.append(Entrada[i])
-
     enc =int(input("\n1 - Criptografar\n2 - Descriptografar\n-> "))
 
     if enc == 1:
+        saida = []
         NomSai = "Out.enc"
-        SaiArq = open(NomSai,"w")
-        for i in range(0,len(splited)):
-            splited[i] = chr((ord(splited[i]) + chave)%nChar)
-            SaiArq.write(splited[i])
+        SaiArq = open(NomSai,"wb")
+        for c in Entrada:
+            saida.append((c + chave) % nChar)
+        SaiArq.write(bytes(saida))
         SaiArq.close()
         print("Arquivo gerado : "+NomSai)
     else:
+        saida = []
         NomSai = "Out.dec"
-        SaiArq = open(NomSai,"w")
-        for i in range(0,len(splited)):
-            splited[i] = chr((ord(splited[i]) - chave)%nChar)
-            SaiArq.write(splited[i])
+        SaiArq = open(NomSai,"wb")
+        for c in Entrada:
+            saida.append((c-chave) % nChar)
+        SaiArq.write(bytes(saida))
         SaiArq.close()
         print("Arquivo gerado : "+NomSai)
 

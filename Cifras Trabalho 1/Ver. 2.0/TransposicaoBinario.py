@@ -9,40 +9,49 @@ print(" ---- CIFRA DE TRANSPOSICAO ---- ")
 def conversion(matriz,texto,chave,cols,enc):
     if enc == 1:
         NomSai = "Out.enc"
-        SaiArq = open(NomSai,"w")
+        SaiArq = open(NomSai,"wb")
     else:
         NomSai = "Out.dec"
-        SaiArq = open(NomSai,"w")
+        SaiArq = open(NomSai,"wb")
+
+    for i in range(len(texto),(cols*chave)+1):
+        texto += bytes(0)
+    print(len(texto))
     j=0
     k=0
     i=0
 
-    while True:
-        if i == len(texto):
-            break
+
+    for t in texto:
         if j < chave:
-            matriz[j][k] = texto[i]
+            #matriz[j].append(texto[i])
+            matriz[j][k] = t
             i+=1
             j+=1
         else:
             j=0
             k+=1
-    #print(matriz)
+    #rint(matriz)
 
+    saida =[]
     for i in range(chave):
         for j in range(cols):
-            SaiArq.write(matriz[i][j])
+            saida.append(matriz[i][j])
+
+    for s in saida:
+        SaiArq.write(bytes(s))
+
 
     matriz.clear();
     SaiArq.close()
     print("Arquivo gerado : "+NomSai)
 
 while True:
-    nChar = 127
+    nChar = 256
     NomEnt = input("\n Arquivo de origem ->  ")
 
     if os.path.exists(NomEnt):
-        EntArq = open(NomEnt,"r")
+        EntArq = open(NomEnt,"rb")
         Entrada = EntArq.read()
         print("Entrada Lida!")
         #print(Entrada)
@@ -54,30 +63,26 @@ while True:
     if os.path.exists(ChavEnt):
         EntCha = open(ChavEnt,"r")
         Chave = int(EntCha.read())
-        chave = Chave%nChar
+        chave = Chave
         print("Chave Lida!")
         EntCha.close()
     else:
         print("Arquivo de Chave não encontrado!")
         break
 
-    splited =[]
-    for i in range(0,len(Entrada)):
-        splited.append(Entrada[i])
-
     cols = math.ceil(len(Entrada)/chave)
 
     enc =int(input("\n1 - Criptografar\n2 - Descriptografar\n-> "))
 
     if enc == 1:
-        matriz = [""] * chave
+        matriz = [bytes()] * chave
         for i in range(chave):
-            matriz[i] = [""] * cols
+            matriz[i] = [bytes()] * cols
         conversion(matriz,Entrada,chave,cols,enc)
     else:
-        matriz = [""] * cols
+        matriz = [bytes()] * cols
         for i in range(cols):
-            matriz[i] = [""] * chave
+            matriz[i] = [bytes()] * chave
         conversion(matriz,Entrada,cols,chave,enc)
 
     print("Processo Finalizado!")
