@@ -37,8 +37,7 @@ while True:
             pk = 0
             for x in Entrada:
                 if pk < len(chave):
-                    saida.append((  x + chave[pk])%nChar)
-                    #print(splited[i])
+                    saida.append((x + chave[pk])%nChar)
                     pk += 1
                 else:
                     pk = 0

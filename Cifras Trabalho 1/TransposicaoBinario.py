@@ -6,44 +6,6 @@ import os
 ChavEnt = "Chave.txt"
 print(" ---- CIFRA DE TRANSPOSICAO ---- ")
 
-def conversion(texto,chave,cols,enc):
-    if enc == 1:
-        NomSai = "Out.enc"
-        SaiArq = open(NomSai,"wb")
-    else:
-        NomSai = "Out.dec"
-        SaiArq = open(NomSai,"wb")
-
-    matriz = []
-
-    chv = 0
-    coluna = []
-    for t in texto:
-        if chv == chave:
-            matriz.append(coluna)
-            coluna = []
-            chv = 0
-        coluna.append(t)
-        chv += 1
-
-    if len(coluna) <= chave:
-        while len(coluna) < chave:
-            coluna.append(127)
-        matriz.append(coluna)
-
-    saida =[]
-    ja=0
-    for j in range(chave):
-        for i in range(0,cols):
-            if matriz[i][j] == 127 and i < cols and enc == 2:
-                ja=1
-            else:
-                saida.append(matriz[i][j])
-
-    SaiArq.write(bytes(saida))
-    SaiArq.close()
-    print("Arquivo gerado : "+NomSai)
-
 while True:
     nChar = 256
     NomEnt = input("\n Arquivo de origem ->  ")
@@ -64,20 +26,46 @@ while True:
         chave = Chave
         print("Chave Lida!")
         EntCha.close()
+        if chave > len(Entrada):
+            print("Chave demasiadamente grande em relação a entrada!")
+            enc = 3
     else:
         print("Arquivo de Chave não encontrado!")
         enc = 3
 
     if enc == 0:
-        cols = math.ceil(len(Entrada)/chave)
 
         enc =int(input("\n1 - Criptografar\n2 - Descriptografar\n-> "))
 
         if enc == 1:
+            NomSai = "Out.enc"
+            SaiArq = open(NomSai,"wb")
+            saida = []
+            for c in range(chave):
+                p = c
+                while p < len(Entrada):
+                    saida.append(Entrada[p])
+                    p += chave
 
-            conversion(Entrada,chave,cols,enc)
+            SaiArq.write(bytes(saida))
+            SaiArq.close()
+            print("\nArquivo gerado : "+NomSai)
         else:
-            conversion(Entrada,cols,chave,enc)
+            NomSai = "Out.dec"
+            SaiArq = open(NomSai,"wb")
+            saida = ['0']*len(Entrada)
+            p = 0
+            at =0
+            for c in Entrada:
+                if p >= len(Entrada):
+                    at += 1
+                    p = at
+                saida[p] = c
+                p += chave
+
+            SaiArq.write(bytes(saida))
+            SaiArq.close()
+            print("\nArquivo gerado : "+NomSai)
 
         print("Processo Finalizado!")
 
