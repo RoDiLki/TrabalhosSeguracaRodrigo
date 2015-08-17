@@ -40,7 +40,7 @@ def conversion(matriz,texto,chave,cols,enc):
 while True:
     nChar = 127
     NomEnt = input("\n Arquivo de origem ->  ")
-
+    enc = 0
     if os.path.exists(NomEnt):
         EntArq = open(NomEnt,"r")
         Entrada = EntArq.read()
@@ -49,8 +49,7 @@ while True:
         EntArq.close()
     else:
         print("Arquivo de entrada não encontrado!")
-        break
-
+        enc = 3
     if os.path.exists(ChavEnt):
         EntCha = open(ChavEnt,"r")
         Chave = int(EntCha.read())
@@ -59,29 +58,31 @@ while True:
         EntCha.close()
     else:
         print("Arquivo de Chave não encontrado!")
-        break
+        enc = 3
 
-    splited =[]
-    for i in range(0,len(Entrada)):
-        splited.append(Entrada[i])
+    if enc == 0:
 
-    cols = math.ceil(len(Entrada)/chave)
+        splited =[]
+        for i in range(0,len(Entrada)):
+            splited.append(Entrada[i])
 
-    enc =int(input("\n1 - Criptografar\n2 - Descriptografar\n-> "))
+        cols = math.ceil(len(Entrada)/chave)
 
-    if enc == 1:
-        matriz = [""] * chave
-        for i in range(chave):
-            matriz[i] = [""] * cols
-        conversion(matriz,Entrada,chave,cols,enc)
-    else:
-        matriz = [""] * cols
-        for i in range(cols):
-            matriz[i] = [""] * chave
-        conversion(matriz,Entrada,cols,chave,enc)
+        enc =int(input("\n1 - Criptografar\n2 - Descriptografar\n-> "))
 
-    print("Processo Finalizado!")
+        if enc == 1:
+            matriz = [""] * chave
+            for i in range(chave):
+                matriz[i] = [""] * cols
+            conversion(matriz,Entrada,chave,cols,enc)
+        else:
+            matriz = [""] * cols
+            for i in range(cols):
+                matriz[i] = [""] * chave
+            conversion(matriz,Entrada,cols,chave,enc)
 
-    out = int(input("\n\n 0 - Sair \n 1 - De novo \n ->"))
-    if out == 0:
-        break
+        print("Processo Finalizado!")
+
+        out = int(input("\n\n 0 - Sair \n 1 - De novo \n ->"))
+        if out == 0:
+            break

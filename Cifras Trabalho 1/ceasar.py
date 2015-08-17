@@ -1,63 +1,59 @@
-__author__ = 'Levinski'
-import sys
+__author__ = 'Vostro3550'
 
-def decifratexto (texto,chave):
+import os
 
-    splited = []
-    for i in range(0,len(texto)):
-        splited.append(texto[i])
+ChavEnt = "Chave.txt"
+print(" ---- CIFRA DE CEASAR ---- ")
+while True:
+    nChar = 127
+    NomEnt = input("\n Arquivo de origem ->  ")
 
-    for i in range(0,len(splited)):
-            splited[i] = chr((ord(splited[i]) + chave)%256)
+    if os.path.exists(NomEnt):
+        EntArq = open(NomEnt,"r")
+        Entrada = EntArq.read()
+        print("Entrada Lida!")
+        #print(Entrada)
+        EntArq.close()
+    else:
+        print("Arquivo de entrada nao encontrado!")
 
-
-    texto= ''
-    for i in range(0,len(splited)):
-        texto += splited[i]
-    print('Decifrado : '+texto+'\n')
-    return  texto
-
-
-arq = open("entrada.txt",'r')
-entrada = arq.read()
-
-print('Entrada : '+entrada)
-print(entrada)
-
-arq2 = open("chave.txt",'r')
-chave = int(arq2.read())
-
-chave = chave%256
-
-print('Key : ',chave)
-
-splited = []
-for i in range(0,len(entrada)):
-    splited.append(entrada[i])
-
-for i in range(0,len(splited)):
-    splited[i] = chr((ord(splited[i]) - chave)%256)
-
-print("Buceta")
-texto = ''
-for i in range(0,len(splited)):
-    texto = texto+splited[i]
-print('Decifrado : '+texto+'\n')
-
-arq = ("Encripted.enc","w")
-arq.write(texto);
-arq.close()
+    if os.path.exists(ChavEnt):
+        EntCha = open(ChavEnt,"r")
+        Chave = int(EntCha.read())
+        chave = Chave%nChar
+        print("Chave Lida!")
+        EntCha.close()
+    else:
+        print("Arquivo de Chave nao encontrado!")
 
 
 
 
+    splited =[]
+    for i in range(0,len(Entrada)):
+        splited.append(Entrada[i])
 
+    enc =int(input("\n1 - Criptografar\n2 - Descriptografar\n-> "))
 
+    if enc == 1:
+        NomSai = "Out.enc"
+        SaiArq = open(NomSai,"w")
+        for i in range(0,len(splited)):
+            splited[i] = chr((ord(splited[i]) + chave)%nChar)
+            SaiArq.write(splited[i])
+        SaiArq.close()
+        print("Arquivo gerado : "+NomSai)
+    else:
+        NomSai = "Out.dec"
+        SaiArq = open(NomSai,"w")
+        for i in range(0,len(splited)):
+            splited[i] = chr((ord(splited[i]) - chave)%nChar)
+            SaiArq.write(splited[i])
+        SaiArq.close()
+        print("Arquivo gerado : "+NomSai)
 
-cifrado = cifratexto(entrada,chave)
-decifrado = decifratexto(cifrado,chave)
+    print("Processo Finalizado!")
 
-if entrada == decifrado:
-    print('O processo de cifragem e decifragem ocorreu perfeitamente!')
-else:
-    print('Algou deu errado com o processo!')
+    out = int(input("\n\n 0 - Sair \n 1 - De novo \n ->"))
+    if out == 0:
+        break
