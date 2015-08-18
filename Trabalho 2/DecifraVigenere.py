@@ -45,7 +45,8 @@ if enc == 0:
     pk = 0
     saida= []
     for x in range(tam):
-        print('l1: ',l1[x],'  l2: ',l2[x])
+        #print('l1: ',l1[x],'  l2: ',l2[x])
+        #print((l1[x] - l2[x])%nChar)
         saida.append((l1[x] - l2[x])%nChar)
     SaiArq.write(bytes(saida))
     SaiArq.close()
