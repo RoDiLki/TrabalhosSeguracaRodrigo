@@ -29,17 +29,16 @@ else:
 
 if enc == 0:
     chave = 2
+    l1=[]
+    for i in Entrada:
+        l1.append(i)
+    l2=[]
+    for i in Alvo:
+        l2.append(i)
     while True:
         print('Chave Atual: ',chave)
         if chave == len(Entrada):
             break
-
-        l1=[]
-        for i in Entrada:
-            l1.append(i)
-        l2=[]
-        for i in Alvo:
-            l2.append(i)
 
         saida = []
         for i in range(len(l1)):
@@ -47,6 +46,7 @@ if enc == 0:
 
         p = 0
         at =0
+        
         for c in l1:
             if p >= len(l1):
                 at += 1
