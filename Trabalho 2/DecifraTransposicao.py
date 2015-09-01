@@ -28,40 +28,47 @@ else:
     enc = 3
 
 if enc == 0:
-    chave = 1
+    chave = 2
     while True:
         print('Chave Atual: ',chave)
         if chave == len(Entrada):
             break
 
-        NomSai = "Decifrado.txt"
-        SaiArq = open(NomSai,"wb")
-        saida = ['0']*len(Entrada)
+        l1=[]
+        for i in Entrada:
+            l1.append(i)
+        l2=[]
+        for i in Alvo:
+            l2.append(i)
+
+        saida = []
+        for i in range(len(l1)):
+            saida.append(0)
+
         p = 0
         at =0
-        for c in Entrada:
-            if p >= len(Entrada):
+        for c in l1:
+            if p >= len(l1):
                 at += 1
                 p = at
             saida[p] = c
             p += chave
 
-        SaiArq.write(bytes(saida))
-        SaiArq.close()
-
-        #print('Saida : ',len(saida),'  Alvo : ',len(Alvo))
-        tam = 0
-        if len(saida) > len(Alvo):
-            tam =  len(saida)
-        else:
-            tam = len(Alvo)
-        for s in range(tam):
-            if saida[s] != Alvo[s]:
-                print('Posicao erro - ',s)
+        dif = 0
+        achou = 0
+        for s in range(len(l2)):
+            if saida[s] != l2[s]:
                 dif = 1
                 break
+
+
+
         if dif == 0:
             print("Decifrado com sucesso utilizando a chave ",chave," !")
+            NomSai = "Decifrado.txt"
+            SaiArq = open(NomSai,"wb")
+            SaiArq.write(bytes(saida))
+            SaiArq.close()
             break;
         else:
             chave += 1
