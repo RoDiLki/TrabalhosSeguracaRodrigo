@@ -6,7 +6,8 @@ import math
 print(" ---- DECIFRA TRANSPOSICAO ---- ")
 
 nChar = 256
-NomEnt = input("\n Arquivo de origem (Cifrado) ->  ")
+#NomEnt = input("\n Arquivo de origem (Cifrado) ->  ")
+NomEnt = "outputs/pg1661.enc"
 enc = 0
 if os.path.exists(NomEnt):
     EntArq = open(NomEnt,"rb")
@@ -17,7 +18,8 @@ else:
     print("Arquivo de origem nao encontrado!")
     enc = 3
 
-NomAlvo = input("\n Arquivo Alvo (Decifrado) ->  ")
+#NomAlvo = input("\n Arquivo Alvo (Decifrado) ->  ")
+NomAlvo = "inputs/pg1661.txt"
 if os.path.exists(NomAlvo):
     EntArq = open(NomAlvo,"rb")
     Alvo = EntArq.read()
@@ -46,7 +48,7 @@ if enc == 0:
 
         p = 0
         at =0
-        
+
         for c in l1:
             if p >= len(l1):
                 at += 1

@@ -1,11 +1,13 @@
 __author__ = 'Vostro3550'
 
 import os
+import n
 
 print(" ---- DECIFRA CEASAR ---- ")
 
 nChar = 256
-NomEnt = input("\n Arquivo de origem (Cifrado) ->  ")
+#NomEnt = input("\n Arquivo de origem (Cifrado) ->  ")
+NomEnt = "outputs/pg11.enc"
 enc = 0
 if os.path.exists(NomEnt):
     EntArq = open(NomEnt,"rb")
@@ -16,7 +18,8 @@ else:
     print("Arquivo de origem nao encontrado!")
     enc = 3
 
-NomAlvo = input("\n Arquivo Alvo (Decifrado) ->  ")
+#NomAlvo = input("\n Arquivo Alvo (Decifrado) ->  ")
+NomAlvo = "inputs/pg11.txt"
 if os.path.exists(NomAlvo):
     EntArq = open(NomAlvo,"rb")
     Alvo = EntArq.read()
