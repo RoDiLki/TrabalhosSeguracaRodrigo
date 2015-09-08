@@ -1,3 +1,0 @@
-1 - dicionário relevante
-2 - frequencia das triplas
-3 - padrão de palavras

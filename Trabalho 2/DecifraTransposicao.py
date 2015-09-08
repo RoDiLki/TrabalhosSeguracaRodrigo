@@ -7,7 +7,7 @@ print(" ---- DECIFRA TRANSPOSICAO ---- ")
 
 nChar = 256
 #NomEnt = input("\n Arquivo de origem (Cifrado) ->  ")
-NomEnt = "outputs/pg1661.enc"
+NomEnt = "outputs/pg1342.enc"
 enc = 0
 if os.path.exists(NomEnt):
     EntArq = open(NomEnt,"rb")
@@ -19,7 +19,8 @@ else:
     enc = 3
 
 #NomAlvo = input("\n Arquivo Alvo (Decifrado) ->  ")
-NomAlvo = "inputs/pg1661.txt"
+NomAlvo = "inputs/pg1342.txt"
+
 if os.path.exists(NomAlvo):
     EntArq = open(NomAlvo,"rb")
     Alvo = EntArq.read()

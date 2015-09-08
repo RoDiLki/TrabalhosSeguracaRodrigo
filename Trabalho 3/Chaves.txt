@@ -1,0 +1,16 @@
+pg11 : CEASAR com chave 5
+
+
+pg1342: TRANSPOSICAO com chave 7
+
+
+pg174 : VIGENERE com chave abcd
+
+
+pg1661 : TRANSPOSICAO com chave 55
+
+
+pg1232 : CESAR 22
+
+
+pg27827 : VIGENERE com chave 123456
