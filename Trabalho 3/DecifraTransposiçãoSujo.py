@@ -5,7 +5,7 @@ import os
 
 nChar = 256
 
-nomeEnt = "outputs/pg1661.enc"
+nomeEnt = "outputs/pg1342.enc"
 
 if os.path.exists(nomeEnt):
     arq = open(nomeEnt,'rb')
@@ -15,7 +15,7 @@ if os.path.exists(nomeEnt):
 else:
     print("Arquivo de origem nao encontrado!")
 
-chave = 4
+chave = 1
 
 lin = set()
 
@@ -35,10 +35,7 @@ for i in Entrada:
 
 while True:
     chave += 1
-    saida = []
-    for i in range(len(l1)):
-        saida.append(0)
-
+    saida = ['0'] * len(l1)
     p = 0
     at =0
 
@@ -61,7 +58,7 @@ while True:
         maior = equivalencias
         provChave = chave
 
-    print('Total eq: ',equivalencias,' com a chave ',chave)
+    #print('Total eq: ',equivalencias,' com a chave ',chave)
     if chave%50 == 0:
         print('Testadas 50 chaves\nChave com maior numero de equivalencias',provChave,' com total de',maior)
         input('press enter para rodar mais 50 chaves...')
