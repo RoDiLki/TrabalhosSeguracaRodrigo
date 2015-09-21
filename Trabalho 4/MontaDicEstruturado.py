@@ -4,11 +4,12 @@ import sys
 import codecs
 from operator import attrgetter
 sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+arquivoenc = 0
+dc = 1
 
-arquivoenc = 1
 if arquivoenc == 0:
     arq = open("DicLivro.txt","r")
-    arq1 = open("trips.txt","w")
+    arq1 = open("trips1.txt","w")
     dic = str(arq.read())
     dic = dic.replace("\n",' ')
     dic = dic.replace("\t",' ')
@@ -24,8 +25,8 @@ if arquivoenc == 0:
     tTriplasSet = set()
     print("ETAPA 1")
 
-    while i < len(dic)-2:
-        tripla = str(dic[i:i+3])
+    while i < (len(dic)-(dc-1)):
+        tripla = str(dic[i:i+dc])
         tTriplas.append(tripla)
 
         if tripla not in tTriplasSet:
@@ -51,58 +52,45 @@ if arquivoenc == 0:
 
     arq1.close()
 else:
-    arq = open("D1.txt","rb")
-    arq1 = open("tripsEnc1.txt","w")
+    arq = open("outputs/pg74.enc","rb")
+    sai = open("TriplasEnc1.txt","w")
     Ax = arq.read()
-    trio = []*3
-    tTriplas = [trio]
 
-    class Tripla:
-        def __init__(self,id,tri,qtd):
-            self.id = id
-            self.tri = [tri] #tri
-            self.qtd = qtd
+    class Tripla():
+        def __init__(self,vtri,vqtd):
+            self.tri = []
+            self.tri = vtri
+            self.qtd = vqtd
 
     print("ETAPA 1")
-    tTriplasSet = [trio]
-    for x in range(len(Ax)-2):
+    Triplas = []
+    SemRept = []
+    for x in range(len(Ax)-(dc-1)):
+        trioEnt = Ax[x:x+dc]
+        trip = []
+        for t in trioEnt:
+            trip.append(t)
+        Triplas.append(trip)
+        if trip not in SemRept:
+            SemRept.append(trip)
 
-        trio = Ax[x:x+3]
-        xxx = []
-        xxx.append(trio[0])
-        xxx.append(trio[1])
-        xxx.append(trio[2])
-        tTriplas.append(xxx)
-        achou = 0
-        for st in tTriplasSet:
-            print(st)
-            if st[1][0] == xxx[0] and st[1][1] == xxx[1] and st[1][2] == xxx[2]:
-                achou = 1
-                break
-
-        if achou == 0:
-            tTriplasSet.add(xxx)
         x+=1
-
-    print(tTriplasSet)
-    input()
-    sax = [Tripla]
-    sax.clear()
     print("ETAPA 2")
-    i=1
-    for t in tTriplasSet:
-        tot = tTriplas.count(t)
-        sax.append((i,t,tot))
-        i+=1
-    print("ETAPA 3")
-    sax.sort(key=lambda x: x[1])
-    print("ETAPA 4")
-    sax.reverse()
+    ComTot = [Tripla]
+    ComTot.clear()
+    for item in SemRept:
+        tot = Triplas.count(item)
+        ComTot.append((item,tot))
 
+    print("ETAPA 3")
+    ComTot.sort(key=lambda x: x[1])
+    print("ETAPA 4")
+    ComTot.reverse()
     print("ETAPA 5")
-    for t in sax:
-        arq1.write(str(t[0][0])+" "+str(t[0][1])+" "+str(t[0][2])+'|'+str(t[1]))
-    arq1.close()
+    for item in ComTot:
+        for i in item[0]:
+            sai.write(str(i)+" ")
+        sai.write(str(item[1])+"\n")
 print("ACABOU")
 
 
